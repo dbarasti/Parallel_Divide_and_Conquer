@@ -15,13 +15,6 @@
 //maximum value for arrays elements
 const int MAX_NUM = 99999.9;
 
-static bool isSorted(int *a, int n) {
-    for (int i = 1; i < n; i++)
-        if (a[i] < a[i - 1])
-            return false;
-    return true;
-}
-
 static int *generateRandomArray(int n) {
     srand((time(0)));
     int *numbers = new int[n];
