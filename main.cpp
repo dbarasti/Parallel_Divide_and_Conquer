@@ -2,13 +2,8 @@
 #include <functional>
 #include <vector>
 #include <algorithm>
-#include <cstring>
 #include <chrono>
 #include "MergeSort.hpp"
-
-#define CUTOFF 125000000
-#define STOPTAILREC 500
-
 
 
 
