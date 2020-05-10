@@ -19,12 +19,12 @@ static bool isArraySorted(int *a, int n) {
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <num_elements> <num_workers>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <num_elements> <par/seq>" << std::endl;
         exit(-1);
     }
 
     int num_elem = atoi(argv[1]);
-    int nwork = atoi(argv[2]);
+    std::string version = argv[2];
     //generate a random array
     std::cout << "Generating random values" << std::endl;
     int *numbers = generateRandomArray(num_elem);
@@ -39,13 +39,17 @@ int main(int argc, char *argv[]) {
     Result res;
 
     auto start = std::chrono::high_resolution_clock::now();
-    if (nwork == 1) {
-        // sequential version
+    if (version == "seq") {
         std::cout << "Running sequential" << std::endl;
         res = ms->run_sequential(op); //is res useless? Side effect is done on op
-    } else {
+    }
+    if (version == "par") {
         std::cout << "Running parallel" << std::endl;
         res = ms->run_parallel(op);
+    }
+    if (version != "par" && version != "seq") {
+        std::cout<<"version " << version << " is not in an accepted format. Use par or seq" << std::endl;
+        return 1;
     }
 
     auto elapsed = std::chrono::high_resolution_clock::now() - start;
