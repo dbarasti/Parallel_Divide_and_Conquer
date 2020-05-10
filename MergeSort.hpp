@@ -7,43 +7,45 @@
 
 
 #define CUTOFF 125000000
-#define STOPTAILREC 500
+#define BASE_CONDITION_CHECK 500
 
 #include <cstring>
 #include "DCFramework.hpp"
 
-//maximum value for arrays elements
-const int MAX_NUM = 99999.9;
+//maximum value of random numbers
+const int MAX_NUM = 99999;
 
 static int *generateRandomArray(int n) {
-    srand((time(0)));
+    srand((time(nullptr)));
     int *numbers = new int[n];
     for (int i = 0; i < n; i++)
         numbers[i] = (int) (rand()) / ((RAND_MAX / MAX_NUM));
     return numbers;
 }
 
-// Operand and Results share the same format
-struct ops {
-    int *array = nullptr;            //array (to sort/sorted)
-    int left = 0;                     //left index
-    int right = 0;                    //right index
+// Defining the format of the types Operand and Result
+struct arrayDef {
+    int *array{};
+    int left = 0;
+    int right = 0;
 };
 
-typedef struct ops Operand;
-typedef struct ops Result;
+typedef struct arrayDef Operand;
+typedef struct arrayDef Result;
 
 class MergeSort: public DCFramework<Operand , Result>{
 protected:
-    bool baseCase(Operand op) override {
+    bool baseCase(Operand input) override {
         // std::cout << "base case reached" << std::endl;
-        return (op.right - op.left <= STOPTAILREC);
+        return (input.right - input.left <= BASE_CONDITION_CHECK);
     }
 
-    Result solve(Operand op) override {
+    /*The base case is not the one of the typical MergeSort.
+     * Here the base case is reached before input.right - input.left = 1 and it's solved using a standard sorting algorithm  */
+    Result solve(Operand input) override {
         // std::cout << "sorting array using std::sort" << std::endl;
-        std::sort(&(op.array[op.left]), &(op.array[op.right + 1]));
-        return op;
+        std::sort(&(input.array[input.left]), &(input.array[input.right + 1]));
+        return input;
     }
 
     std::vector<Operand> divide(Operand op) override {
