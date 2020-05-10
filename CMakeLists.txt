@@ -17,7 +17,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wextra -O0 -fsanitize=thread -fstack-check -fs
 set(CMAKE_CXX_FLAGS_RELEASE "-pthread -O3")
 
 
-add_executable(DivideAndConquer_ParallelFramework main.cpp DCFramework.hpp MergeSort.hpp DC_ciro.h)
+add_executable(DivideAndConquer_ParallelFramework main.cpp DCFramework.hpp MergeSort.hpp)
 # add_library(master_worker STATIC MasterWorker.hpp)
 
 # set compiler

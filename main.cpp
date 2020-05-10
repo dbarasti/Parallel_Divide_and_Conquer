@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <cstring>
 #include <chrono>
-#include "DC_ciro.h"
 #include "MergeSort.hpp"
 
 #define CUTOFF 125000000
