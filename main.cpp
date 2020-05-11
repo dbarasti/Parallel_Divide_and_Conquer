@@ -10,7 +10,7 @@
 /* ------------------------------------------------------------------ */
 //maximum value for arrays elements
 
-static bool isArraySorted(int *a, int n) {
+static bool isArraySorted(const int *a, int n) {
     for (int i = 1; i < n; i++)
         if (a[i] < a[i - 1])
             return false;
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
     auto start = std::chrono::high_resolution_clock::now();
     if (version == "seq") {
         std::cout << "Running sequential" << std::endl;
-        res = ms->run_sequential(op); //is res useless? Side effect is done on op
+        res = ms->run_sequential(op);
     }
     if (version == "par") {
         std::cout << "Running parallel" << std::endl;

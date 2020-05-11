@@ -26,19 +26,16 @@ protected:
 public:
     Tout run_parallel(Tin input) {
         std::cout << "Running run_parallel()" << std::endl;
-
         if (baseCase(input)) return solve(input);
 
         auto subProblems = divide(input);
         std::vector<Tout> subResults(subProblems.size());
-        // list of threads
         std::vector<std::thread> threads;
 
         if (!checkCutoff(subProblems[0])) {
             auto threadLambda = [&subResults, &subProblems, this](const int i) {
                 subResults[i] = run_parallel(subProblems[i]);
             };
-
             for (auto i = 0; i != subProblems.size(); i++) {
                 threads.push_back(std::thread(threadLambda, i));
             }
@@ -63,7 +60,6 @@ public:
 
     Tout run_sequential(Tin input) {
         // std::cout << "Running run_sequential()" << std::endl;
-
         if (baseCase(input)) return (solve(input));
 
         auto subProblems = divide(input);
